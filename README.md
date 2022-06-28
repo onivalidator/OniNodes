@@ -49,6 +49,9 @@ export DAEMON_HOME=<Binary_Folder> >> $HOME/.profile
 export DAEMON_NAME=<Binary_Name> >> $HOME/.profile
 ```
 ```bash
+echo "export GOPATH=/home/<username>/go" >> ~/.profile
+```
+```bash
 source $HOME/.profile
 ```
 
