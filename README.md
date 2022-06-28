@@ -7,7 +7,7 @@ You will need to start with getting a Server/VPS from OVHcloud, Vultr, Hetzner, 
 ```
 adduser <Pick a Name>
 passwd -d root
-sudo adduser <Pick a Name> sudo
+sudo adduser <same name as chosen above> sudo
 ```
 
 #### Change Computer Name for ID purposes, something like `oni-[chain]-mainnet` or `oni-[chain]-testnet`
