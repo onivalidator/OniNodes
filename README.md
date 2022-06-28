@@ -86,9 +86,12 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 ```
 
-`<Binary_Name>` is often something like `junod` or `osmosisd`. 
+`<Binary_Name>` is often something like `junod` or `osmosisd`.
+ 
 `<Binary_Folder>` is often something like `/home/AdminUser/.juno` or `/home/AdminUser/.evmosd`.  
+ 
  It can have a `d` at the end of the binary name, or sometimes it doesn't. 
+ 
  This is admittedly confusing and stupid.
  
 An example of how this could look is:
