@@ -26,7 +26,7 @@ sudo apt install git -y
 
 Server Setup. This script has a bunch of goodies to make your node run smoothly and nicely with most (like 99.9%) of Tendermint based chains. It is downloading from this repository, so feel free to look at the code/script yourself and pick/choose which pieces to install if you'd like to be picky. Last step of script is to `reboot` like every good install of a bunch of new programs, so don't panic when you see a `"Disconnected from Host!"` banner pop up. It will be avaible again in a few minutes.
 ```bash
-git clone https://github.com/OniNodes/OniNodes
+git clone https://github.com/onivalidator/OniNodes
 cd OniNodes/scripts
 bash serversetup.sh
 ```
