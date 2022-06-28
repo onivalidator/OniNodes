@@ -3,20 +3,21 @@ This guide is a begginer intro to Linux creation and setting up a node for a Ten
 
 You will need to start with getting a Server/VPS from OVHcloud, Vultr, Hetzner, Contabo, etc. You can set up a lot from within, including using SSH keys and firewall configurations. However, we're going to pretend you simply just installed a fresh Ubuntu 20.04 HWE LTS and got your Password for `root` emailed to you...so let's change that...
 
-#### Add your username (then follow prompts to add your new, personal password) and Remove Root Password
+#### Add your username (then follow prompts to add your new, personal password) and Remove Root Password. Then give new user sudo priviledges.
 ```
 adduser <Pick a Name>
-passwd -d root 
+passwd -d root
+sudo adduser <Pick a Name> sudo
 ```
 
-#### Change Computer Name for ID purposes, something like `CoolNewChain-Validator`
+#### Change Computer Name for ID purposes, something like `oni-[chain]-mainnet` or 'oni-[chain]-testnet`
 ```
 sudo nano /etc/hostname
 sudo nano /etc/hosts
 reboot
 ```
 
-#### Login with newly created user
+#### Login with newly created user, as previously defined in <Pick a Name>
 #### Update Linux Dependencies and Install Git
 ```bash
 sudo apt update
@@ -25,8 +26,8 @@ sudo apt install git -y
 
 Server Setup. This script has a bunch of goodies to make your node run smoothly and nicely with most (like 99.9%) of Tendermint based chains. It is downloading from this repository, so feel free to look at the code/script yourself and pick/choose which pieces to install if you'd like to be picky. Last step of script is to `reboot` like every good install of a bunch of new programs, so don't panic when you see a `"Disconnected from Host!"` banner pop up. It will be avaible again in a few minutes.
 ```bash
-git clone https://github.com/Golden-Ratio-Staking/GoldenRatioNodes
-cd GoldenRatioNodes/scripts
+git clone https://github.com/OniNodes/OniNodes
+cd OniNodes/scripts
 bash serversetup.sh
 ```
 
@@ -54,7 +55,7 @@ source $HOME/.profile
 This script will set you up with latest Cosmovisor, configure folders, and copy your Binary to Genesis folder, the last step of script will place you into the service file for Cosmovisor (so a blank screen until you copy/paste template)
 ```bash
 cd $HOME
-cd GoldenRatioNodes/scripts
+cd OniNodes/scripts
 bash cosmovisorsetup.sh
 ```
 Once script is finished, you should be seeing a blank screen within `nano`, which will be your future service file. Copy/Paste/Edit this service file as needed (pay attention to `<these>`). Then press `Ctrl+X` to escape, `y` to save, and `enter` to confirm.
@@ -81,6 +82,32 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 [Install]
 WantedBy=multi-user.target
 ```
+
+`<Binary_Name>` is often something like `junod` or `osmosisd`. `<Binary_Folder>` is often something like `/home/AdminUser/.juno`. 
+An example of how this could look is:
+
+```
+[Unit]
+Description=cosmovisor
+After=network-online.target
+
+[Service]
+User=AdministrativeUser
+ExecStart=/home/AdministrativeUser/go/bin/cosmovisor start
+Restart=always
+RestartSec=3
+LimitNOFILE=infinity
+Environment="DAEMON_NAME=junod"
+Environment="DAEMON_HOME=/home/AdministrativeUser/.juno"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="DAEMON_LOG_BUFFER_SIZE=512"
+Environment="UNSAFE_SKIP_BACKUP=true"
+
+[Install]
+WantedBy=multi-user.target
+```
+
 
 Start Cosmovisor. This will refresh service file, enable service file to restart itself upon startup/restart of the server, and start the chain.
 ```bash
