@@ -10,7 +10,7 @@ passwd -d root
 sudo adduser <Pick a Name> sudo
 ```
 
-#### Change Computer Name for ID purposes, something like `oni-[chain]-mainnet` or 'oni-[chain]-testnet`
+#### Change Computer Name for ID purposes, something like `oni-[chain]-mainnet` or `oni-[chain]-testnet`
 ```
 sudo nano /etc/hostname
 sudo nano /etc/hosts
